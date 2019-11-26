@@ -20,6 +20,8 @@ bool exitApp = false;
 int lastMousePosX;
 int lastMousePosY;
 
+int colorCambiar = 0;
+
 double deltaTime;
 
 // Se definen todos las funciones.
@@ -99,6 +101,18 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 		case GLFW_KEY_ESCAPE:
 			exitApp = true;
 			break;
+		case GLFW_KEY_R:
+			colorCambiar = 4;
+			break;
+		case GLFW_KEY_G:
+			colorCambiar = 1;
+			break;
+		case GLFW_KEY_B:
+			colorCambiar = 2;
+			break;
+		case GLFW_KEY_W:
+			colorCambiar = 3;
+			break;
 		}
 	}
 }
@@ -133,15 +147,23 @@ bool processInput(bool continueApplication){
 	glfwPollEvents();
 	return continueApplication;
 }
-
 void applicationLoop() {
 	bool psi = true;
 	while (psi) {
 		psi = processInput(true);
 		glClear(GL_COLOR_BUFFER_BIT);
+		if (colorCambiar == 4)
+			glClearColor(1.0, 0.0f, 0.0, 0.0);
+		else if (colorCambiar == 1)
+			glClearColor(0.0, 1.0, 0.0, 0.0);
+		else if (colorCambiar == 2)
+			glClearColor(0.0, 0.0, 1.0, 0.0);
+		else if (colorCambiar == 3)
+			glClearColor(1.0, 1.0, 1.0, 0.0);
 		glfwSwapBuffers(window);
 	}
 }
+
 
 int main(int argc, char ** argv) {
 	init(800, 700, "Window GLFW", false);
